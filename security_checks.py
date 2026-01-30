@@ -8,13 +8,15 @@ import inspect
 from Database_pass import connect_db
 from colorama import init, Fore, Style
 
-init(autoreset = True)
+init(autoreset=True)
 
+# color constants
 INFO = Fore.CYAN
 WARNING = Fore.YELLOW
 ERROR = Fore.RED
 SUCCESS = Fore.GREEN
-NORMAL = Style.NORMAL
+NORMAL = Style.RESET_ALL
+
 
 FAULT_KEYWORDS = {"error", "vulnerab", "weak", "hardcod", "issue", "fault", "danger", "secret", "password", "api_key"}
 
@@ -46,18 +48,18 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-2.5-flash")
 # response = model.generate_content("Say 'Hello, security scanner!' if you can hear me.")
 
-print("=" * 50)
-print("Analyzing SQL Injection Example...")
-print("=" * 50)
+print_colored("=" * 50, "info")
+print_colored("Analyzing SQL Injection Example...", "info")
+print_colored("=" * 50, "info")
 response = model.generate_content(prompt.security_prompt.format(code=inspect.getsource(get_user_data)))
-print(response.text)# Test with hardcoded credentials
-print("\n" + "=" * 50)
-print("Analyzing Hardcoded Credentials Example...")
-print("=" * 50)
+print_response_colored(response.text)
+print_colored("\n" + "=" * 50, "info")
+print_colored("Analyzing Hardcoded Credentials Example...", "info")
+print_colored("=" * 50, "info")
 response = model.generate_content(prompt.security_prompt.format(code=inspect.getsource(connect_db)))
-print(response.text)# Test with weak cryptography
-print("\n" + "=" * 50)
-print("Analyzing Weak Cryptography Example...")
-print("=" * 50)
+print_response_colored(response.text)
+print_colored("\n" + "=" * 50, "info")
+print_colored("Analyzing Weak Cryptography Example...", "info")
+print_colored("=" * 50, "info")
 response = model.generate_content(prompt.security_prompt.format(code=inspect.getsource(hash_password_md5)))
-print(response.text)
+print_response_colored(response.text)
