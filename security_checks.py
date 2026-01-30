@@ -9,6 +9,7 @@ from Database_pass import connect_db
 from colorama import init, Fore, Style
 
 init(autoreset = True)
+
 INFO = Fore.CYAN
 WARNING = Fore.YELLOW
 ERROR = Fore.RED
